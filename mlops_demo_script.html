@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MLOps Cats vs Dogs — Live Demo Script (Windows)</title>
+  <style>
+    :root{
+      --bg:#0b1220; --card:#111b2e; --text:#e7eefc; --muted:#b7c4e3;
+      --accent:#5aa7ff; --ok:#35d07f; --warn:#ffcf5a; --bad:#ff6b6b;
+      --border:rgba(255,255,255,.10);
+    }
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text);line-height:1.55}
+    header{padding:22px 18px;border-bottom:1px solid var(--border)}
+    .wrap{max-width:980px;margin:0 auto;padding:18px}
+    h1{margin:0 0 6px;font-size:22px}
+    h2{margin:0 0 8px;font-size:18px;color:var(--accent)}
+    h3{margin:12px 0 6px;font-size:15px;color:var(--accent)}
+    p,li{color:var(--muted)}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin:14px 0}
+    pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Courier New",monospace}
+    pre{background:rgba(0,0,0,.25);border:1px solid var(--border);border-radius:12px;padding:12px;overflow:auto}
+    code{background:rgba(0,0,0,.25);padding:2px 6px;border-radius:8px}
+    .tag{display:inline-block;font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid rgba(90,167,255,.25);background:rgba(90,167,255,.14);color:var(--accent);margin:6px 8px 0 0}
+    .ok{color:var(--ok);font-weight:700}
+    .warn{color:var(--warn);font-weight:700}
+    .bad{color:var(--bad);font-weight:700}
+    hr{border:0;border-top:1px solid var(--border);margin:14px 0}
+    table{width:100%;border-collapse:collapse;margin-top:8px}
+    th,td{border:1px solid var(--border);padding:10px;text-align:left;vertical-align:top}
+    th{color:var(--text);background:rgba(255,255,255,.04)}
+    .small{font-size:13px}
+    .quote{border-left:4px solid rgba(90,167,255,.5);padding-left:12px;margin:10px 0;color:var(--text)}
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>MLOps Cats vs Dogs — Live Demo Script (Windows)</h1>
+    <p class="small">
+      Use this as your speaking script + navigation plan while you demo to your team.
+      Project path: <code>F:\OneDrive\Desktop\mlops_replicate</code>
+    </p>
+    <span class="tag">Git</span><span class="tag">DVC</span><span class="tag">MLflow</span><span class="tag">FastAPI</span><span class="tag">Prometheus Metrics</span><span class="tag">Docker</span><span class="tag">Pytest</span>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="card">
+    <h2>1) Introduction (say this — ~1 minute)</h2>
+    <div class="quote">
+      Today I will demonstrate an end-to-end MLOps pipeline for a CNN-based image classification model (Cats vs Dogs).<br><br>
+      The pipeline includes Git for version control, DVC for dataset versioning, MLflow for experiment tracking,
+      FastAPI for model serving, Prometheus metrics for monitoring, Docker for containerization, and Pytest for automated tests.
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>2) Terminal 1 — Show project structure</h2>
+    <p>Run:</p>
+    <pre>cd F:\OneDrive\Desktop\mlops_replicate
+tree /F</pre>
+    <p>Explain:</p>
+    <ul>
+      <li><code>src/</code> contains training pipeline</li>
+      <li><code>app/</code> contains API serving logic</li>
+      <li><code>tests/</code> contains automated tests</li>
+      <li><code>artifacts/</code> stores trained model + evaluation outputs</li>
+      <li><code>PetImages/</code> is the dataset (kept out of Git, tracked via DVC pointer)</li>
+      <li><code>.dvc</code> contains DVC project config</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>3) Terminal 1 — Git version control proof</h2>
+    <pre>git status</pre>
+    <p>Say:</p>
+    <div class="quote">
+      Git tracks all code and configuration. The working tree is clean, meaning the repository is in a consistent state.
+    </div>
+    <p class="small">Optional:</p>
+    <pre>git log --oneline -5</pre>
+  </section>
+
+  <section class="card">
+    <h2>4) Terminal 1 — DVC dataset tracking proof</h2>
+    <pre>dvc status</pre>
+    <p>Say:</p>
+    <div class="quote">
+      DVC tracks the dataset through a pointer file (PetImages.dvc). The raw dataset folder is not committed to Git,
+      which keeps the repository lightweight while still reproducible.
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>5) Browser Tab 1 — MLflow experiment tracking</h2>
+    <p>Open:</p>
+    <pre>http://127.0.0.1:5000</pre>
+    <p>Click path:</p>
+    <ul>
+      <li><b>Experiments</b> → <b>cats-vs-dogs</b> → open the latest run</li>
+    </ul>
+    <p>Show &amp; say:</p>
+    <ul>
+      <li><span class="ok">Parameters</span>: epochs, batch_size, learning_rate</li>
+      <li><span class="ok">Metrics</span>: validation accuracy, loss</li>
+      <li><span class="ok">Artifacts</span>: model file + plots (confusion matrix, loss curve)</li>
+    </ul>
+    <div class="quote">
+      MLflow gives reproducibility: we can re-run training with the same parameters and compare runs to select the best model.
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>6) Terminal 2 — Training evidence (already completed)</h2>
+    <p>Scroll to your training output and highlight:</p>
+    <pre>Training finished in 860.4s
+Artifacts saved to: F:\OneDrive\Desktop\mlops_replicate\artifacts
+Val accuracy: 0.7803</pre>
+    <p>Say:</p>
+    <div class="quote">
+      Training completed successfully. The final model and evaluation outputs were saved as artifacts and logged to MLflow.
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>7) Terminal 3 — API running (FastAPI + Uvicorn)</h2>
+    <p>Run:</p>
+    <pre>cd F:\OneDrive\Desktop\mlops_replicate
+.\.venv\Scripts\Activate.ps1
+uvicorn app.main:app --reload --port 8000</pre>
+    <p>Say:</p>
+    <div class="quote">
+      The trained model is served via a FastAPI REST service. This is the deployment stage of the MLOps lifecycle.
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>8) Browser Tab 2 — Swagger demo (prediction)</h2>
+    <p>Open:</p>
+    <pre>http://127.0.0.1:8000/docs</pre>
+    <p>Demo steps:</p>
+    <ol>
+      <li>Expand <code>/predict</code></li>
+      <li>Upload <code>PetImages\Cat\1.jpg</code> or a Dog image</li>
+      <li>Click <b>Execute</b></li>
+      <li>Show response (label + confidence)</li>
+    </ol>
+    <p class="small"><span class="warn">PowerShell tip:</span> If using curl in terminal, use <code>curl.exe</code> not <code>curl</code>.</p>
+  </section>
+
+  <section class="card">
+    <h2>9) Browser Tab 3 — Monitoring metrics</h2>
+    <p>Open:</p>
+    <pre>http://127.0.0.1:8000/metrics</pre>
+    <p>Demo steps:</p>
+    <ol>
+      <li>Open <code>/metrics</code></li>
+      <li>Make 2–3 predictions in Swagger</li>
+      <li>Refresh <code>/metrics</code> and show counters increasing</li>
+    </ol>
+    <div class="quote">
+      This demonstrates production-style observability. Metrics can be scraped by Prometheus and visualized in Grafana.
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>10) Terminal 1 — Automated testing proof</h2>
+    <pre>cd F:\OneDrive\Desktop\mlops_replicate
+.\.venv\Scripts\Activate.ps1
+python -m pytest</pre>
+    <p>Say:</p>
+    <div class="quote">
+      Automated tests validate the API behavior. In CI/CD, tests run on every code change to prevent regressions.
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>11) (Optional) Docker demo (only if Docker Desktop is running)</h2>
+    <pre>cd F:\OneDrive\Desktop\mlops_replicate
+docker compose up --build</pre>
+    <p class="muted">If Docker fails due to Docker Desktop engine not running, skip in live demo and mention it as deploy-ready.</p>
+    <div class="quote">
+      Docker provides environment consistency so the same service runs the same way on any machine or server.
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>12) Closing summary (say this — ~20 seconds)</h2>
+    <div class="quote">
+      In summary, this project demonstrates the full MLOps lifecycle: dataset versioning with DVC, experiment tracking with MLflow,
+      model packaging as artifacts, API deployment with FastAPI, monitoring with metrics, automated testing with Pytest, and optional Docker containerization.
+      The workflow is reproducible and deployment-ready.
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Live Demo Navigation Map (3 terminals + 3 browser tabs)</h2>
+    <table>
+      <thead>
+        <tr><th>Where</th><th>What to show</th><th>Key message (1 line)</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>Terminal 1</b></td>
+          <td>tree /F, git status, dvc status</td>
+          <td>Code is versioned; data is tracked via DVC (not stored in Git).</td>
+        </tr>
+        <tr>
+          <td><b>Browser Tab 1</b></td>
+          <td>MLflow experiment + run details</td>
+          <td>Parameters/metrics/artifacts are tracked for reproducibility.</td>
+        </tr>
+        <tr>
+          <td><b>Terminal 2</b></td>
+          <td>Training output (time + accuracy)</td>
+          <td>Training succeeded; artifacts saved and logged.</td>
+        </tr>
+        <tr>
+          <td><b>Terminal 3</b></td>
+          <td>Uvicorn running</td>
+          <td>Model is deployed as an API service.</td>
+        </tr>
+        <tr>
+          <td><b>Browser Tab 2</b></td>
+          <td>Swagger /predict</td>
+          <td>Live prediction demo with real image upload.</td>
+        </tr>
+        <tr>
+          <td><b>Browser Tab 3</b></td>
+          <td>/metrics endpoint</td>
+          <td>Observability: request counters increase with usage.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+</body>
+</html>
