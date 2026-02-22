@@ -1,0 +1,9 @@
+services:
+  catsdogs:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - MODEL_PATH=/app/artifacts/model.pt
+    volumes:
+      - ./artifacts:/app/artifacts

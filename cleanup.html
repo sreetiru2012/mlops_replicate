@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MLOps Safe Cleanup Script (Windows)</title>
+    <style>
+        body { font-family: Arial; background:#0f172a; color:#e2e8f0; padding:20px; }
+        h1,h2 { color:#38bdf8; }
+        pre { background:#1e293b; padding:15px; border-radius:8px; }
+        .safe { color:#22c55e; font-weight:bold; }
+        .danger { color:#ef4444; font-weight:bold; }
+        .note { color:#facc15; }
+    </style>
+</head>
+<body>
+
+<h1>🧹 Safe Project Cleanup Script</h1>
+
+<p>This script cleans cache files before replication setup.</p>
+
+<h2>📌 Step 1: Navigate to Project</h2>
+
+<pre>
+cd F:\OneDrive\Desktop\mlops_replicate
+</pre>
+
+<h2>📌 Step 2: Remove Python Cache Folders</h2>
+
+<pre>
+Get-ChildItem -Recurse -Directory -Filter "__pycache__" | Remove-Item -Recurse -Force
+</pre>
+
+<h2>📌 Step 3: Remove .pytest_cache</h2>
+
+<pre>
+Remove-Item -Recurse -Force .pytest_cache -ErrorAction SilentlyContinue
+</pre>
+
+<h2>📌 Step 4: Remove .mypy_cache (if exists)</h2>
+
+<pre>
+Remove-Item -Recurse -Force .mypy_cache -ErrorAction SilentlyContinue
+</pre>
+
+<h2>📌 Step 5: Remove All .pyc Files</h2>
+
+<pre>
+Get-ChildItem -Recurse -Filter "*.pyc" | Remove-Item -Force
+</pre>
+
+<h2>📌 Step 6: Remove Old Virtual Environment (if exists)</h2>
+
+<pre>
+Remove-Item -Recurse -Force .venv -ErrorAction SilentlyContinue
+</pre>
+
+<h2 class="safe">✔ What This Script DOES NOT Remove</h2>
+
+<ul>
+<li>PetImages/ dataset</li>
+<li>artifacts/ folder</li>
+<li>.dvc/ folder</li>
+<li>PetImages.dvc</li>
+<li>requirements.txt</li>
+<li>Dockerfile</li>
+</ul>
+
+<h2 class="danger">⚠ DO NOT Run</h2>
+
+<pre>
+Remove-Item -Recurse -Force *
+</pre>
+
+<p>This will delete your entire project.</p>
+
+<h2 class="note">After Cleaning</h2>
+
+<p>Proceed with:</p>
+
+<pre>
+py -V:3.10 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip setuptools wheel
+pip install -r requirements.txt
+</pre>
+
+<h1>🎉 You are now clean and ready to replicate safely</h1>
+
+</body>
+</html>
